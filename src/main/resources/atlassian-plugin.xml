@@ -9,18 +9,18 @@
     <param name="plugin-logo">images/pluginLogo.png</param>
   </plugin-info>
   <!-- add our i18n resource -->
-  <resource type="i18n" name="i18n" location="tutorial-jira-custom-field"/>
+  <resource type="i18n" name="i18n" location="myPlugin"/>
   <!-- add our web resources -->
-  <web-resource key="tutorial-jira-custom-field-resources" name="tutorial-jira-custom-field Web Resources">
+  <web-resource key="myPlugin-resources" name="myPlugin Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="tutorial-jira-custom-field.css" location="/css/tutorial-jira-custom-field.css"/>
-    <resource type="download" name="tutorial-jira-custom-field.js" location="/js/tutorial-jira-custom-field.js"/>
+    <resource type="download" name="myPlugin.css" location="/css/myPlugin.css"/>
+    <resource type="download" name="myPlugin.js" location="/js/myPlugin.js"/>
     <resource type="download" name="images/" location="/images"/>
-    <context>tutorial-jira-custom-field</context>
+    <context>myPlugin</context>
   </web-resource>
-  <customfield-type name="Money Custom Field" i18n-name-key="money-custom-field.name" key="money-custom-field" class="com.example.plugins.tutorial.jira.jira.customfields.MoneyCustomField">
-    <description key="money-custom-field.description">The Money Custom Field Plugin</description>
-    <resource name="view" type="velocity" location="/templates/customfields/money-custom-field/view.vm"/>
-    <resource name="edit" type="velocity" location="/templates/customfields/money-custom-field/edit.vm"/>
+  <customfield-type name="Positive Integer Custom Field" i18n-name-key="positive-integer-custom-field.name" key="positive-integer-custom-field" class="com.example.plugins.tutorial.jira.jira.customfields.PositiveIntegerCustomField">
+    <description key="positive-integer-custom-field.description">The Positive Integer Custom Field Plugin</description>
+    <resource name="view" type="velocity" location="/templates/customfields/positive-integer-custom-field/view.vm"/>
+    <resource name="edit" type="velocity" location="/templates/customfields/positive-integer-custom-field/edit.vm"/>
   </customfield-type>
 </atlassian-plugin>

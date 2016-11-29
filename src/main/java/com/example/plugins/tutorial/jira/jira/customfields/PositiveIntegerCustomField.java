@@ -8,12 +8,10 @@ import com.atlassian.jira.issue.customfields.manager.GenericConfigManager;
 import com.atlassian.jira.issue.customfields.persistence.CustomFieldValuePersister;
 import com.atlassian.jira.issue.customfields.persistence.PersistenceFieldType;
 
-import java.math.BigDecimal;
+public class PositiveIntegerCustomField extends AbstractSingleFieldType<Integer> {
+    private static final Logger log = LoggerFactory.getLogger(PositiveIntegerCustomField.class);
 
-public class MoneyCustomField extends AbstractSingleFieldType<BigDecimal> {
-    private static final Logger log = LoggerFactory.getLogger(MoneyCustomField.class);
-
-    public MoneyCustomField(CustomFieldValuePersister customFieldValuePersister,
+    public PositiveIntegerCustomField(CustomFieldValuePersister customFieldValuePersister,
             GenericConfigManager genericConfigManager) {
         super(customFieldValuePersister, genericConfigManager);
     }
@@ -25,43 +23,42 @@ public class MoneyCustomField extends AbstractSingleFieldType<BigDecimal> {
     }
 
     @Override
-    protected Object getDbValueFromObject(final BigDecimal customFieldObject)
+    protected Object getDbValueFromObject(final Integer customFieldObject)
     {
         return getStringFromSingularObject(customFieldObject);
     }
 
     @Override
-    protected BigDecimal getObjectFromDbValue(final Object databaseValue)
+    protected Integer getObjectFromDbValue(final Object databaseValue)
             throws FieldValidationException
     {
         return getSingularObjectFromString((String) databaseValue);
     }
 
     @Override
-    public String getStringFromSingularObject(final BigDecimal singularObject)
+    public String getStringFromSingularObject(final Integer singularObject)
     {
         if (singularObject == null)
             return "";
-        // format
         return singularObject.toString();
     }
 
     @Override
-    public BigDecimal getSingularObjectFromString(final String string)
+    public Integer getSingularObjectFromString(final String string)
             throws FieldValidationException
     {
         if (string == null)
             return null;
         try
         {
-            final BigDecimal decimal = new BigDecimal(string);
-            // Check that we don't have too many decimal places
-            if (decimal.scale() > 2)
+            final Integer i = new Integer(string);
+            if (i < 0)
             {
                 throw new FieldValidationException(
-                        "Maximum of 2 decimal places are allowed.");
+                        "Only positive integer allowed");
             }
-            return decimal.setScale(2);
+            return i;
+            
         }
         catch (NumberFormatException ex)
         {
